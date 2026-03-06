@@ -1,203 +1,478 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My-Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-      html {
-        scroll-behavior: smooth;
-      }
-    </style>
-  </head>
-  <body class="bg-dark text-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Afaq Zaman | DevOps Engineer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #0b0f1a;
+      color: #e2e8f0;
+      font-family: 'Syne', sans-serif;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .content-wrap { position: relative; z-index: 1; }
+
+    /* Navbar */
+    .navbar { background: rgba(11,15,26,0.95) !important; border-bottom: 1px solid #1e2d40; backdrop-filter: blur(10px); }
+    .navbar-brand { font-family: 'JetBrains Mono', monospace; color: #00d4ff !important; font-weight: 700; }
+    .nav-link { color: #94a3b8 !important; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; transition: color 0.3s; }
+    .nav-link:hover, .nav-link.active { color: #00d4ff !important; }
+
+    /* Section titles */
+    .section-title { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
+    .section-title span { background: linear-gradient(135deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .section-hr { border: none; height: 2px; background: linear-gradient(90deg, #00d4ff, #7c3aed); width: 60px; margin: 0.5rem auto 0; opacity: 1; }
+
+    /* HOME */
+    #home { padding: 100px 20px 80px; }
+    .home-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #00d4ff; letter-spacing: 0.2em; text-transform: uppercase; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2); padding: 0.3rem 1rem; border-radius: 2px; display: inline-block; margin-bottom: 1rem; }
+    .home-title { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; }
+    .home-title .name { background: linear-gradient(135deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .typed-wrap { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: #00d4ff; margin: 1rem 0; }
+    .typed-wrap::before { content: '> '; color: #7c3aed; }
+    .home-desc { color: #64748b; max-width: 600px; margin: 0 auto 2rem; font-size: 1rem; line-height: 1.8; }
+    .btn-primary-custom { background: linear-gradient(135deg, #00d4ff, #0099bb); border: none; color: #0b0f1a; font-weight: 700; padding: 0.75rem 2rem; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-primary-custom:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,212,255,0.3); color: #0b0f1a; }
+    .btn-outline-custom { background: transparent; border: 1px solid rgba(0,212,255,0.4); color: #00d4ff; font-weight: 700; padding: 0.75rem 2rem; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; transition: all 0.2s; }
+    .btn-outline-custom:hover { background: rgba(0,212,255,0.1); color: #00d4ff; transform: translateY(-2px); }
+    .social-icon { color: #64748b; font-size: 1.4rem; transition: color 0.3s, transform 0.3s; }
+    .social-icon:hover { color: #00d4ff; transform: translateY(-3px); }
+
+    /* PROFILE CARD */
+    .profile-card { background: #0f172a; border: 1px solid #1e2d40; border-radius: 12px; overflow: hidden; max-width: 280px; margin: 0 auto; transition: transform 0.3s, border-color 0.3s; }
+    .profile-card:hover { transform: translateY(-5px); border-color: rgba(0,212,255,0.3); }
+    .profile-card img { width: 100%; height: 220px; object-fit: cover; }
+    .profile-card-body { padding: 1.5rem; text-align: center; }
+    .profile-card-body h5 { font-weight: 800; font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .profile-roles { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #00d4ff; }
+    .profile-info { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #64748b; margin-top: 0.8rem; }
+    .profile-info a { color: #64748b; text-decoration: none; }
+    .profile-info a:hover { color: #00d4ff; }
+
+    /* ABOUT */
+    #about { padding: 80px 0; }
+    .about-photo { width: 260px; height: 260px; object-fit: cover; border-radius: 50%; border: 3px solid #00d4ff; box-shadow: 0 0 30px rgba(0,212,255,0.2); }
+    .stat-box { background: #0f172a; border: 1px solid #1e2d40; border-radius: 8px; padding: 1.2rem; text-align: center; transition: border-color 0.3s; }
+    .stat-box:hover { border-color: rgba(0,212,255,0.3); }
+    .stat-number { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #64748b; }
+
+    /* INTERESTS */
+    #interests { padding: 80px 0; }
+    .interest-card { background: #0f172a; border: 1px solid #1e2d40; border-radius: 8px; padding: 1.5rem; height: 100%; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+    .interest-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #00d4ff, #7c3aed); opacity: 0; transition: opacity 0.3s; }
+    .interest-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-3px); }
+    .interest-card:hover::before { opacity: 1; }
+    .interest-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .interest-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; }
+    .interest-desc { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #64748b; line-height: 1.7; }
+    .interest-tag { display: inline-block; margin-top: 0.8rem; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 0.2rem 0.5rem; border-radius: 3px; background: rgba(0,212,255,0.1); color: #00d4ff; border: 1px solid rgba(0,212,255,0.2); }
+
+    /* SKILLS */
+    #skills { padding: 80px 0; }
+    .skill-card { background: #0f172a; border: 1px solid #1e2d40; border-radius: 8px; padding: 1.2rem 0.8rem; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .skill-card:hover { border-color: rgba(0,212,255,0.4); transform: translateY(-4px); }
+    .skill-card img { width: 50px; height: 50px; object-fit: contain; }
+    .skill-card p { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #94a3b8; margin-top: 0.6rem; margin-bottom: 0; }
+
+    /* PROJECTS */
+    #projects { padding: 80px 0; }
+    .project-card { background: #0f172a; border: 1px solid #1e2d40; border-radius: 8px; padding: 1.5rem; height: 100%; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #00d4ff, #7c3aed); opacity: 0; transition: opacity 0.3s; }
+    .project-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); }
+    .project-card:hover::before { opacity: 1; }
+    .project-icon { font-size: 2rem; margin-bottom: 1rem; color: #00d4ff; }
+    .project-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+    .project-desc { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #64748b; line-height: 1.7; }
+    .badge-custom { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; padding: 0.25rem 0.6rem; border-radius: 3px; }
+    .project-footer { margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid #1e2d40; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #64748b; }
+
+    /* CONTACT */
+    #contact { padding: 80px 0; }
+    .contact-card { background: #0f172a; border: 1px solid #1e2d40; border-radius: 8px; padding: 2rem; height: 100%; }
+    .contact-icon-box { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .form-control { background: #0b0f1a !important; border: 1px solid #1e2d40 !important; color: #e2e8f0 !important; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; border-radius: 4px; }
+    .form-control:focus { border-color: rgba(0,212,255,0.4) !important; box-shadow: 0 0 0 2px rgba(0,212,255,0.1) !important; }
+    .form-control::placeholder { color: #475569; }
+
+    /* Footer */
+    footer { background: #0f172a; border-top: 1px solid #1e2d40; padding: 1.5rem 0; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #475569; }
+
+    /* Animations */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+  </style>
+</head>
+<body class="bg-dark text-light">
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" 
-      aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg sticky-top" data-bs-theme="dark">
+  <div class="container">
+    <a class="navbar-brand" href="#home">&lt;AfaqZaman /&gt;</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#interests">Interests</a></li>
         <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Home -->
-<div class="text-center my-3" id="home">
-  <h1 class="fw-bold text-light">Hi, I'm AFAQ ZAMAN</h1>
-  <h3 class="text-primary mt-3"><span id="typed"></span></h3>
-</div>
+<div class="content-wrap">
 
-<!-- Profile Card -->
-<div class="container text-center my-5">
-  <div class="row">
-    <div class="col">
-      <div class="card mx-auto bg-dark text-light" style="width: 18rem;">
-        <img src="WhatsApp Image 2025-09-14 at 23.13.36_4561ff48.jpg" class="card-img-top rounded-4" alt="MY-PROFILE PICTURE">
-        <div class="card-body text-center">
-          <h5 class="card-title">AFAQ ZAMAN</h5>
-          <p class="card-text">
-            Web Developer <br>
-            Digital Marketer <br>
-            Video Editor
-          </p>
-          <strong>Email:</strong> 
-          <a href="mailto:afaqxamanisecom@gmail.com" class="text-light text-decoration-none">
-            afaqxamanisecom@gmail.com
+<!-- HOME -->
+<section id="home" class="text-center">
+  <div class="container">
+    <div class="row justify-content-center align-items-center g-5">
+      <div class="col-lg-7">
+        <div class="home-label fade-up">// Available for work</div>
+        <h1 class="home-title fade-up delay-1">Hi, I'm <span class="name">AFAQ ZAMAN</span></h1>
+        <div class="typed-wrap fade-up delay-2"><span id="typed"></span></div>
+        <p class="home-desc fade-up delay-3">
+          Building scalable infrastructure, automating workflows, and delivering 
+          reliable cloud-native solutions. Bridging the gap between development and operations.
+        </p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap fade-up delay-4">
+          <a href="resume.pdf" download class="btn btn-primary-custom">
+            <i class="fas fa-download me-2"></i>Download CV
           </a>
-          <p><strong>Phone:</strong> +92 3459609695</p>
+          <a href="#contact" class="btn btn-outline-custom">
+            <i class="fas fa-envelope me-2"></i>Hire Me
+          </a>
+        </div>
+        <div class="d-flex gap-4 justify-content-center mt-4 fade-up delay-4">
+          <a href="https://github.com/afaqxaman" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/afaq-zaman-776b15275" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.instagram.com/afaqzaman_?igsh=MTQ0a3BndXM3aGMyeg==" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:afaqxamanisecom@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="profile-card">
+          <img src="WhatsApp Image 2025-09-14 at 23.13.36_4561ff48.jpg" alt="Afaq Zaman">
+          <div class="profile-card-body">
+            <h5>AFAQ ZAMAN</h5>
+            <div class="profile-roles">DevOps Engineer · Full Stack Dev</div>
+            <div class="profile-info">
+              <div><i class="fas fa-envelope me-1"></i><a href="mailto:afaqxamanisecom@gmail.com">afaqxamanisecom@gmail.com</a></div>
+              <div class="mt-1"><i class="fas fa-phone me-1"></i>+92 3459609695</div>
+              <div class="mt-1"><i class="fas fa-map-marker-alt me-1"></i>Lahore, Pakistan</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- About -->
-<div class="container text-center my-5" id="about">
-  <div class="row">
-    <div class="col">
-      <h1 class="fw-bold">Who I Am</h1>
-      <hr class="border-3 border-primary opacity-100 w-25 mx-auto">
-      <p class="mt-3">
-        I am Afaq Zaman, a passionate Web Developer, Digital Marketer, and Video Editor.  
-        I love creating user-friendly websites, engaging digital strategies, and  
-        professional video content. My goal is to help brands grow online by  
-        blending technology with creativity. I always strive to learn and improve  
-        my skills to stay updated with the latest trends.
-      </p>
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title"><span>Who I Am</span></h2>
+      <hr class="section-hr">
     </div>
-  </div>
-</div>
-
-<!-- Interests -->
-<div class="container text-center my-5">
-  <div class="row">
-    <div class="col">
-      <h1 class="fw-bold">My Interests</h1>
-      <hr class="border-3 border-primary opacity-100 w-25 mx-auto">
-      <p class="mt-3">
-        I am deeply interested in web technologies, digital marketing, and creative design.  
-        I enjoy exploring new frameworks, analyzing digital trends, and producing  
-        visually appealing content. In my free time, I like experimenting with  
-        UI/UX designs, improving my video editing skills, and learning about  
-        innovative marketing strategies.
-      </p>
-    </div>
-  </div>
-</div>
-
-<!-- Skills -->
-<div class="container my-5" id="skills">
-  <div class="row">
-    <div class="col text-center">
-      <h1 class="fw-bold">My Skills</h1>
-      <hr class="border-3 border-primary opacity-100 w-25 mx-auto">
-    </div>
-  </div>
-
-  <div class="row text-center mt-4">
-    <!-- HTML -->
-    <div class="col-6 col-md-4 col-lg-2 mb-4">
-      <div class="p-3 border rounded bg-dark text-light">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="60" alt="HTML">
-        <p class="mt-2 mb-0">HTML</p>
+    <div class="row align-items-center g-5">
+      <div class="col-md-4 text-center">
+        <img src="WhatsApp Image 2025-09-14 at 23.13.36_4561ff48.jpg" alt="Afaq Zaman" class="about-photo">
       </div>
-    </div>
-    <!-- CSS -->
-    <div class="col-6 col-md-4 col-lg-2 mb-4">
-      <div class="p-3 border rounded bg-dark text-light">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="60" alt="CSS">
-        <p class="mt-2 mb-0">CSS</p>
-      </div>
-    </div>
-    <!-- JavaScript -->
-    <div class="col-6 col-md-4 col-lg-2 mb-4">
-      <div class="p-3 border rounded bg-dark text-light">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="60" alt="JavaScript">
-        <p class="mt-2 mb-0">JavaScript</p>
-      </div>
-    </div>
-    <!-- SEO -->
-    <div class="col-6 col-md-4 col-lg-2 mb-4">
-      <div class="p-3 border rounded bg-dark text-light">
-        <img src="https://cdn-icons-png.flaticon.com/512/281/281760.png" width="60" alt="SEO">
-        <p class="mt-2 mb-0">SEO</p>
-      </div>
-    </div>
-    <!-- Facebook Ads -->
-    <div class="col-6 col-md-4 col-lg-2 mb-4">
-      <div class="p-3 border rounded bg-dark text-light">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" width="60" alt="Facebook Ads">
-        <p class="mt-2 mb-0">Facebook Ads</p>
-      </div>
-    </div>
-    <!-- Social Media -->
-    <div class="col-6 col-md-4 col-lg-2 mb-4">
-      <div class="p-3 border rounded bg-dark text-light">
-        <img src="https://cdn-icons-png.flaticon.com/512/220/220375.png" width="60" alt="Social Media Marketing">
-        <p class="mt-2 mb-0">Social Media</p>
-      </div>
-    </div>
-    <!-- Adobe -->
-    <div class="col-6 col-md-4 col-lg-2 mb-4">
-      <div class="p-3 border rounded bg-dark text-light">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" width="60" alt="Adobe">
-        <p class="mt-2 mb-0">Adobe</p>
+      <div class="col-md-8">
+        <p style="color:#94a3b8; line-height:1.9; font-size:0.95rem;">
+          I am <strong style="color:#e2e8f0;">Afaq Zaman</strong>, a passionate 
+          <strong style="color:#00d4ff;">DevOps Engineer</strong> and 
+          <strong style="color:#00d4ff;">Full Stack Developer</strong> based in Lahore, Pakistan.
+          I focus on automating workflows, managing cloud infrastructure, and ensuring smooth 
+          deployment processes. I work with tools like <strong style="color:#e2e8f0;">Docker, Kubernetes, AWS, 
+          and CI/CD pipelines</strong> to make applications faster, secure, and highly scalable.
+          My goal is to bridge the gap between development and operations to deliver reliable 
+          and high-performing digital solutions.
+        </p>
+        <div class="row g-3 mt-2">
+          <div class="col-4"><div class="stat-box"><div class="stat-number">1+</div><div class="stat-label">Years Exp</div></div></div>
+          <div class="col-4"><div class="stat-box"><div class="stat-number">5+</div><div class="stat-label">Projects</div></div></div>
+          <div class="col-4"><div class="stat-box"><div class="stat-number">10+</div><div class="stat-label">Technologies</div></div></div>
+        </div>
+        <div class="d-flex gap-3 mt-4 flex-wrap">
+          <a href="resume.pdf" download class="btn btn-primary-custom"><i class="fas fa-download me-2"></i>Download CV</a>
+          <a href="#contact" class="btn btn-outline-custom"><i class="fas fa-envelope me-2"></i>Contact Me</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Contact -->
-<div class="container text-center my-5" id="contact">
-  <div class="row">
-    <div class="col">
-      <h1 class="fw-bold">Get in Touch</h1>
-      <hr class="border-3 border-primary opacity-100 w-25 mx-auto">
-      <p class="mt-3">Feel free to reach out to me through WhatsApp, Email, or connect on social media!</p>
-
-      <p>
-        <a href="https://wa.me/923459609695" target="_blank" class="btn btn-success me-2">
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </a>
-        <a href="mailto:afaqxamanisecom@gmail.com" class="btn btn-primary">
-          <i class="fas fa-envelope"></i> Email
-        </a>
-      </p>
-
-      <div class="mt-4">
-        <a href="https://www.facebook.com/share/1NUpnaAJso/" target="_blank" class="text-primary fs-3 me-3">
-          <i class="fab fa-facebook"></i>
-        </a>
-        <a href="https://www.instagram.com/afaqzaman_?igsh=MTQ0a3BndXM3aGMyeg==" target="_blank" class="text-danger fs-3 me-3">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://linkedin.com/in/afaq-zaman-776b15275" target="_blank" class="text-info fs-3">
-          <i class="fab fa-linkedin"></i>
-        </a>
+<!-- INTERESTS -->
+<section id="interests">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title"><span>My Interests</span></h2>
+      <hr class="section-hr">
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 col-sm-6">
+        <div class="interest-card">
+          <div class="interest-icon">🐳</div>
+          <div class="interest-title">Containers & Orchestration</div>
+          <div class="interest-desc">Deep interest in Docker and Kubernetes for building scalable containerized microservices.</div>
+          <span class="interest-tag">K8s · Docker</span>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="interest-card">
+          <div class="interest-icon">⚙️</div>
+          <div class="interest-title">CI/CD Pipelines</div>
+          <div class="interest-desc">Designing automated delivery pipelines using Jenkins and GitHub Actions for faster deployments.</div>
+          <span class="interest-tag">Automation</span>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="interest-card">
+          <div class="interest-icon">☁️</div>
+          <div class="interest-title">Cloud Infrastructure</div>
+          <div class="interest-desc">Exploring AWS EC2, S3 and managing cloud-native architectures at scale.</div>
+          <span class="interest-tag">AWS · EC2</span>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="interest-card">
+          <div class="interest-icon">🔧</div>
+          <div class="interest-title">Infrastructure as Code</div>
+          <div class="interest-desc">Writing clean, repeatable infrastructure using Terraform and Ansible.</div>
+          <span class="interest-tag">Terraform · IaC</span>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="interest-card">
+          <div class="interest-icon">📊</div>
+          <div class="interest-title">Monitoring & Observability</div>
+          <div class="interest-desc">Setting up Grafana and Prometheus dashboards to track system health in real-time.</div>
+          <span class="interest-tag">Grafana · Logs</span>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="interest-card">
+          <div class="interest-icon">🔐</div>
+          <div class="interest-title">DevSecOps</div>
+          <div class="interest-desc">Integrating security into pipelines — vulnerability scanning and secrets management.</div>
+          <span class="interest-tag">Security · Vault</span>
+        </div>
       </div>
     </div>
   </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title"><span>My Skills</span></h2>
+      <hr class="section-hr">
+    </div>
+    <div class="row row-cols-3 row-cols-md-4 row-cols-lg-6 g-3 text-center">
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML"><p>HTML</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS"><p>CSS</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"><p>JavaScript</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"><p>React</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js"><p>Node.js</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"><p>Python</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL"><p>MySQL</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB"><p>MongoDB</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS"><p>AWS</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"><p>Docker</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes"><p>Kubernetes</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"><p>Git</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="filter:invert(1)"><p>GitHub</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux"><p>Linux</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform"><p>Terraform</p></div></div>
+      <div class="col"><div class="skill-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins"><p>Jenkins</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title"><span>My Projects</span></h2>
+      <hr class="section-hr">
+      <p style="color:#64748b; font-family:'JetBrains Mono',monospace; font-size:0.8rem; margin-top:0.5rem;">Some of the projects I have worked on</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-database"></i></div>
+          <div class="project-title">ERP Software</div>
+          <div class="project-desc">A complete Enterprise Resource Planning system managing business operations including inventory, HR, finance, and reporting modules.</div>
+          <div class="mt-3 d-flex flex-wrap gap-2">
+            <span class="badge badge-custom bg-primary">Full Stack</span>
+            <span class="badge badge-custom bg-success">MySQL</span>
+            <span class="badge badge-custom bg-warning text-dark">JavaScript</span>
+            <span class="badge badge-custom bg-info text-dark">Node.js</span>
+          </div>
+          <div class="project-footer"><i class="fas fa-code me-2"></i>In Progress</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-infinity"></i></div>
+          <div class="project-title">CI/CD Pipeline Automation</div>
+          <div class="project-desc">Automated deployment pipeline using GitHub Actions and Jenkins. Containerized with Docker and deployed on AWS EC2 with zero downtime.</div>
+          <div class="mt-3 d-flex flex-wrap gap-2">
+            <span class="badge badge-custom bg-primary">Docker</span>
+            <span class="badge badge-custom bg-success">Jenkins</span>
+            <span class="badge badge-custom bg-warning text-dark">AWS EC2</span>
+            <span class="badge badge-custom bg-info text-dark">GitHub Actions</span>
+          </div>
+          <div class="project-footer"><i class="fas fa-check me-2" style="color:#22c55e"></i>Completed</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-globe"></i></div>
+          <div class="project-title">Personal Portfolio</div>
+          <div class="project-desc">Responsive portfolio website built with Bootstrap 5 showcasing DevOps and Full Stack skills, projects and contact information.</div>
+          <div class="mt-3 d-flex flex-wrap gap-2">
+            <span class="badge badge-custom bg-primary">HTML</span>
+            <span class="badge badge-custom bg-success">CSS</span>
+            <span class="badge badge-custom bg-warning text-dark">Bootstrap</span>
+            <span class="badge badge-custom bg-info text-dark">JavaScript</span>
+          </div>
+          <div class="project-footer"><a href="https://afaqxaman.github.io/A-Portfolio/" target="_blank" style="color:#00d4ff; text-decoration:none;"><i class="fas fa-external-link-alt me-2"></i>Live Demo</a></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-cloud"></i></div>
+          <div class="project-title">Cloud Infrastructure (AWS)</div>
+          <div class="project-desc">Designed and deployed scalable cloud infrastructure on AWS using EC2, S3, and VPC. Managed with Terraform for Infrastructure as Code.</div>
+          <div class="mt-3 d-flex flex-wrap gap-2">
+            <span class="badge badge-custom bg-primary">AWS</span>
+            <span class="badge badge-custom bg-success">Terraform</span>
+            <span class="badge badge-custom bg-warning text-dark">EC2</span>
+            <span class="badge badge-custom bg-info text-dark">S3</span>
+          </div>
+          <div class="project-footer"><i class="fas fa-check me-2" style="color:#22c55e"></i>Completed</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-laptop-code"></i></div>
+          <div class="project-title">Full Stack Web App</div>
+          <div class="project-desc">A full stack web application with React frontend and Node.js backend featuring user authentication, REST API and MongoDB integration.</div>
+          <div class="mt-3 d-flex flex-wrap gap-2">
+            <span class="badge badge-custom bg-primary">React</span>
+            <span class="badge badge-custom bg-success">Node.js</span>
+            <span class="badge badge-custom bg-warning text-dark">MongoDB</span>
+            <span class="badge badge-custom bg-info text-dark">REST API</span>
+          </div>
+          <div class="project-footer"><i class="fas fa-code me-2"></i>In Progress</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title"><span>Get in Touch</span></h2>
+      <hr class="section-hr">
+      <p style="color:#64748b; font-family:'JetBrains Mono',monospace; font-size:0.8rem; margin-top:0.5rem;">Have a project in mind? Let's work together!</p>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-5">
+        <div class="contact-card">
+          <h5 style="font-weight:800; color:#00d4ff; margin-bottom:1.5rem;">Contact Info</h5>
+          <div class="d-flex align-items-center mb-3 gap-3">
+            <div class="contact-icon-box bg-primary"><i class="fas fa-envelope text-white"></i></div>
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#64748b;">Email</div>
+              <a href="mailto:afaqxamanisecom@gmail.com" style="color:#e2e8f0; text-decoration:none; font-size:0.85rem;">afaqxamanisecom@gmail.com</a>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-3 gap-3">
+            <div class="contact-icon-box bg-success"><i class="fab fa-whatsapp text-white"></i></div>
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#64748b;">WhatsApp</div>
+              <a href="https://wa.me/923459609695" target="_blank" style="color:#e2e8f0; text-decoration:none; font-size:0.85rem;">+92 345 9609695</a>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-3 gap-3">
+            <div class="contact-icon-box bg-danger"><i class="fas fa-map-marker-alt text-white"></i></div>
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#64748b;">Location</div>
+              <span style="font-size:0.85rem;">Lahore, Pakistan</span>
+            </div>
+          </div>
+          <hr style="border-color:#1e2d40;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:#64748b; margin-bottom:0.8rem;">Follow Me</div>
+          <div class="d-flex gap-2 flex-wrap">
+            <a href="https://github.com/afaqxaman" target="_blank" class="btn btn-sm btn-outline-light" style="font-family:'JetBrains Mono',monospace; font-size:0.72rem;"><i class="fab fa-github me-1"></i>GitHub</a>
+            <a href="https://linkedin.com/in/afaq-zaman-776b15275" target="_blank" class="btn btn-sm btn-outline-primary" style="font-family:'JetBrains Mono',monospace; font-size:0.72rem;"><i class="fab fa-linkedin me-1"></i>LinkedIn</a>
+            <a href="https://www.instagram.com/afaqzaman_?igsh=MTQ0a3BndXM3aGMyeg==" target="_blank" class="btn btn-sm btn-outline-danger" style="font-family:'JetBrains Mono',monospace; font-size:0.72rem;"><i class="fab fa-instagram me-1"></i>Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="contact-card">
+          <h5 style="font-weight:800; color:#00d4ff; margin-bottom:1.5rem;">Send a Message</h5>
+          <div class="mb-3"><input type="text" class="form-control" placeholder="Your Name"></div>
+          <div class="mb-3"><input type="email" class="form-control" placeholder="Your Email"></div>
+          <div class="mb-3"><input type="text" class="form-control" placeholder="Subject"></div>
+          <div class="mb-3"><textarea class="form-control" rows="4" placeholder="Your Message"></textarea></div>
+          <a href="mailto:afaqxamanisecom@gmail.com" class="btn btn-primary-custom w-100"><i class="fas fa-paper-plane me-2"></i>Send Message</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-center">
+  <div class="container">
+    <span>© 2026 <span style="color:#00d4ff;">Afaq Zaman</span> · DevOps Engineer & Full Stack Developer</span>
+  </div>
+</footer>
+
 </div>
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script>
   var typed = new Typed("#typed", {
-    strings: ["Web Developer", "DevOps Engineer","Digital Marketer", "Video Editor"],
+    strings: ["DevOps Engineer", "Full Stack Developer", "Cloud Enthusiast", "CI/CD Expert"],
     typeSpeed: 80,
     backSpeed: 50,
     loop: true
